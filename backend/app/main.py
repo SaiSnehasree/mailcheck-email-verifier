@@ -33,12 +33,12 @@ app = FastAPI(
     description="Production-ready bulk email verification API. Classifies emails as Likely Delivered, Likely to Bounce, or Unknown."
 )
 
-# CORS Middleware
+# CORS Middleware - Permissive for public verification API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 

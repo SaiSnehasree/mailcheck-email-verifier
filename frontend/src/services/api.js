@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const rawBaseUrl = import.meta.env.VITE_API_URL || '';
+const API_BASE_URL = rawBaseUrl.replace(/\/+$/, '');
 
 /**
  * Checks backend health and configuration
@@ -24,13 +25,21 @@ export async function verifyEmails(emails) {
     throw new Error('Please enter at least one email address to verify.');
   }
 
-  const response = await fetch(`${API_BASE_URL}/api/verify`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ emails }),
-  });
+  let response;
+  try {
+    response = await fetch(`${API_BASE_URL}/api/verify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ emails }),
+    });
+  } catch (networkErr) {
+    console.error('Network fetch error:', networkErr);
+    throw new Error(
+      'Could not connect to the verification engine. On Render free tier, the backend takes ~50 seconds to spin up on first request, or check that VITE_API_URL is configured.'
+    );
+  }
 
   if (!response.ok) {
     let errorDetail = 'Failed to verify emails.';
