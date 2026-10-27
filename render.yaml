@@ -12,5 +12,5 @@ services:
     staticPublishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
-        value: https://mailcheck-backend.onrender.com
+        value: https://mailcheck-email-verifier-9rbl.onrender.com
     plan: free
