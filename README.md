@@ -146,7 +146,7 @@ MIT – feel free to fork, modify, and deploy.
 ---
 
 ## Author
-Created by an AI‑assisted development session (Antigravity) for the user.
+MEDA SAI SNEHA SREE
 
 ---
 
